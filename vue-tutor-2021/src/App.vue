@@ -1,17 +1,53 @@
 <template>
     <div class="container">
-        <Header />
+        <Header title="Hello Anh Nhat"/>
+        <Tasks @delete-task="deleteTask" :tasks="tasks" />
     </div>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import Header from './components/Header'
+import Tasks from './components/Tasks'
 export default {
   name: 'App',
   components: {
-    Header
-  }
+    Header,
+    Tasks,
+  },
+  data() {
+    return {
+      tasks: [],
+    }
+  },
+  methods: {
+    deleteTask(id){
+      // console.log('task', id)
+      this.tasks = this.tasks.filter((task)=> task.id !== id)
+    },
+  },
+  created() {
+    this.tasks = [
+      {
+        id: 1,
+        text: 'Doctors Appointment',
+        day: 'March 1st at 2:30pm',
+        reminder: true,
+      },
+      {
+        id: 2,
+        text: 'Meeting at School',
+        day: 'March 3rd at 1:30pm',
+        reminder: true,
+      },
+      {
+        id: 3,
+        text: 'Food Shopping',
+        day: 'March 3rd at 11:00am',
+        reminder: false,
+      }
+    ]
+  },
 }
 </script>
 
