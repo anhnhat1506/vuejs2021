@@ -7,10 +7,20 @@
           </div>
           <div class="userprofile__follower-count">
               <strong>Followers: </strong> {{ followers }}
+              
           </div>
+          <form class="user-profile__create-twoot">
+            <label for="newTwoot">New Twoot</label>
+            <textarea id="newTwoot" rows="4" />
+          </form>
       </div>
       <div class="user-profile__twoots-wrapper">
-            <TwootItem v-for="twoot in user.twoots" :key="twoot.id" :username="user.username" :twoot="twoot" />
+            <TwootItem 
+              v-for="twoot in user.twoots" 
+              :key="twoot.id" 
+              :username="user.username" 
+              :twoot="twoot" 
+              @favourite="toggleFavourite" />
       </div>
   </div>
 </template>
@@ -54,6 +64,9 @@ export default {
   methods:{
     followUser(){
       this.followers++
+    },
+    toggleFavourite(id){
+      console.log(`Favourite Tweet #${id}`)
     }
   },
   mounted() {
@@ -66,7 +79,7 @@ export default {
 .user-profile{
     display: grid;
     grid-template-columns: 1fr 3fr;
-    width: 100%;
+    grid-gap: 50px;
     padding: 50px 5%;
 }
 
@@ -87,7 +100,6 @@ export default {
     margin-right: auto;
     padding: 0 10px;
     font-weight: bold;
-
 }
 
 h1{
@@ -96,5 +108,10 @@ h1{
 .user-profile__twoots-wrapper{
     display: grid;
     grid-gap: 10px;
+}
+.user-profile__twoots-wrapper{
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 </style>
