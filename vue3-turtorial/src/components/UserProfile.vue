@@ -9,9 +9,24 @@
               <strong>Followers: </strong> {{ followers }}
               
           </div>
-          <form class="user-profile__create-twoot">
+          <form class="user-profile__create-twoot" @submit.prevent="createNewTwoot">
             <label for="newTwoot">New Twoot</label>
             <textarea id="newTwoot" rows="4" />
+
+            <div class="user-profile__create-twoot-type">
+              <label for="newTwootType">
+                <strong>Type: </strong>
+              </label>
+              <select id="newTwootType" >
+                <option :value="option.value" v-for="{option, index} in twootTypes" :key="index">
+                  {{ option.name }}
+                </option>
+              </select>
+            </div>
+
+            <button>
+              Twoot!
+            </button>
           </form>
       </div>
       <div class="user-profile__twoots-wrapper">
@@ -34,6 +49,12 @@ export default {
   },
   data(){
     return {
+      // newTwootContent: '',
+      // selectedTwootType: 'instant',
+      twootTypes: [
+        { value: 'draft', name: 'Draft' },
+        { value: 'instant', name: 'Instant Twoot' }
+      ],
       followers: 0,
       user: {
         id: 1,
@@ -75,43 +96,45 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .user-profile{
     display: grid;
     grid-template-columns: 1fr 3fr;
     grid-gap: 50px;
     padding: 50px 5%;
+
+    .user-profile__user-panel{
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        background-color: white;
+        border-radius: 5px;
+        border: 1px solid #DFE3E8;
+
+        h1{
+            margin: 0;
+        }
+
+        .user-profile__admin-badge{
+            background: rebeccapurple;
+            color: white;
+            border-radius: 5px;
+            margin-right: auto;
+            padding: 0 10px;
+            font-weight: bold;
+        }
+
+        .user-profile__create-twoot{
+          padding-top: 20px;
+          display: flex;
+          flex-direction: column;
+        }
+    } 
+
+    .user-profile__twoots-wrapper{
+        display: grid;
+        grid-gap: 10px;
+    }
 }
 
-.user-profile__user-panel{
-    display: flex;
-    flex-direction: column;
-    margin-right: 50px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    border: 1px solid #DFE3E8;
-}
-
-.user-profile__admin-badge{
-    background: rebeccapurple;
-    color: white;
-    border-radius: 5px;
-    margin-right: auto;
-    padding: 0 10px;
-    font-weight: bold;
-}
-
-h1{
-    margin: 0;
-}
-.user-profile__twoots-wrapper{
-    display: grid;
-    grid-gap: 10px;
-}
-.user-profile__twoots-wrapper{
-  padding-top: 20px;
-  display: flex;
-  flex-direction: column;
-}
 </style>
